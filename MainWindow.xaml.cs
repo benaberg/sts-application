@@ -6,13 +6,13 @@ namespace STSApplication
 {
     public partial class MainWindow : Window
     {
-        private readonly NotifyIcon _NotifyIcon = new();
+        private readonly NotifyIcon _notifyIcon = new();
 
         public MainWindow()
         {
             SaunaTemperatureClient.InitUpdate(60, UpdateTrayIcon);
             InitializeComponent();
-            _NotifyIcon.Visible = true;
+            _notifyIcon.Visible = true;
             Hide();
         }
 
@@ -23,8 +23,8 @@ namespace STSApplication
             Brush brush = new SolidBrush(Color.White);
             Graphics graphics = Graphics.FromImage(bitmap);
             graphics.DrawString(Content.Temperature.ToString(), font, brush, -4, 2);
-            _NotifyIcon.Text = Content.Temperature.ToString() + "°C";
-            _NotifyIcon.Icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
+            _notifyIcon.Text = Content.Temperature.ToString() + "°C";
+            _notifyIcon.Icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
         }
     }
 }
