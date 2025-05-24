@@ -45,8 +45,9 @@ namespace STSApplication
             rotate.Angle = (reading.Temperature - 20) * 1.8;
             
             // Tray icon
+            int fontSize = reading.Temperature >= 100 ? 24 : 32;
             Bitmap bitmap = ApplicationResource.meter_64x64;
-            Font font = new("Verdana", 32, System.Drawing.FontStyle.Regular);
+            Font font = new("Verdana", fontSize, System.Drawing.FontStyle.Regular);
             System.Drawing.Brush brush = new SolidBrush(System.Drawing.Color.White);
             Graphics graphics = Graphics.FromImage(bitmap);
             graphics.DrawString(reading.Temperature.ToString(), font, brush, -4, 4);
