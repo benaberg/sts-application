@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STSApplication"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         Title="Sauna Temperature Sensor - Meter" Height="374" Width="554">
     <Grid>
         <Image Source="Resources/background.png" Height="360" Width="554" />
