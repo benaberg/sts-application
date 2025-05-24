@@ -12,6 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\background.png" />
+    <None Remove="Resources\meter-64x64.png" />
+    <None Remove="Resources\needle.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>4</VersionMinor>
@@ -22,6 +28,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
+    <Resource Include="Resources\meter-64x64.png" />
+    <Resource Include="Resources\needle.png" />
   </ItemGroup>
 
   <ItemGroup>

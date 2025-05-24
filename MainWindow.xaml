@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STSApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        ResizeMode="NoResize"
+        Title="Sauna Temperature Sensor - Meter" Height="374" Width="554">
     <Grid>
-
+        <Image Source="Resources/background.png" Height="360" Width="554" />
+        <Image x:Name="Needle" Source="Resources/needle.png" Height="360" Width="554" />
+        <Label x:Name="TimestampLabel" Foreground="White" Content="Last Updated:" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontFamily="Bahnschrift" Margin="0,6,0,0" />
     </Grid>
 </Window>

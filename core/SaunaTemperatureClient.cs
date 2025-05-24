@@ -42,10 +42,14 @@ namespace STSApplication.core
             System.Diagnostics.Debug.WriteLine("Fetching temperature reading...");
             HttpResponseMessage response = client.GetAsync(ApplicationResource.STS_API_Context).Result;
             response.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<TemperatureReading>(response.Content.ReadAsStringAsync().Result);
+            String responseString = response.Content.ReadAsStringAsync().Result;
+            System.Diagnostics.Debug.WriteLine("Received response: " + responseString);
+            TemperatureReading reading = JsonConvert.DeserializeObject<TemperatureReading>(responseString);
+            System.Diagnostics.Debug.WriteLine("Deserialized reading: (temperature) " + reading.Temperature + ", (timestamp) " + reading.Timestamp);
+            return reading;
         }
 
-        public static async void InitUpdate(int seconds, Action<LabelContent> labelAction)
+        public static async void InitUpdate(int seconds, Action<TemperatureReading> labelAction)
         {
             System.Diagnostics.Debug.WriteLine("Initializing update...");
             TemperatureReading _reading = FetchReading();
@@ -68,11 +72,10 @@ namespace STSApplication.core
             }
         }
 
-        private static void UpdateLabel(TemperatureReading reading, Action<LabelContent> labelAction)
+        private static void UpdateLabel(TemperatureReading reading, Action<TemperatureReading> labelAction)
         {
             System.Diagnostics.Debug.WriteLine("Updating label...");
-            LabelContent Content = new(reading.Temperature);
-            labelAction.Invoke(Content);
+            labelAction.Invoke(reading);
         }
     }
 }

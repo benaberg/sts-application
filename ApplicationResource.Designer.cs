@@ -63,9 +63,29 @@ namespace STSApplication {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap meter64x64 {
+        internal static System.Drawing.Bitmap background {
             get {
-                object obj = ResourceManager.GetObject("meter64x64", resourceCulture);
+                object obj = ResourceManager.GetObject("background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap meter_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("meter_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap needle {
+            get {
+                object obj = ResourceManager.GetObject("needle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
