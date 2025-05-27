@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using STSApplication.core;
 using STSApplication.model;
 
@@ -40,9 +41,9 @@ namespace STSApplication
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
             dtfi.TimeSeparator = ":";
             TimestampLabel.Content = "Last Updated: " + date.ToString("HH:mm:ss  dd.MM.yyyy", dtfi);
-            
+
             // Needle angle
-            rotate.Angle = (reading.Temperature - 20) * 1.8;
+            UpdateNeedle(reading.Temperature);
             
             // Tray icon
             int fontSize = reading.Temperature >= 100 ? 24 : 32;
@@ -53,6 +54,17 @@ namespace STSApplication
             graphics.DrawString(reading.Temperature.ToString(), font, brush, -4, 4);
             _notifyIcon.Text = reading.Temperature.ToString() + "°C";
             _notifyIcon.Icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
+        }
+
+        private void UpdateNeedle(int temperature)
+        {
+            DoubleAnimation rotateAnimation = new()
+            {
+                From = rotate.Angle,
+                To = (temperature - 20) * 1.8,
+                Duration = TimeSpan.FromSeconds(1)
+            };
+            rotate.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }
 
         protected override void OnStateChanged(EventArgs e)
