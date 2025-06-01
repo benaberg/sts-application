@@ -4,20 +4,13 @@ using STSApplication.model;
 
 namespace STSApplication.core
 {
-    internal class SaunaTemperatureClient
+    internal class SaunaTemperatureClient(string host, int port, string path, int retryInterval)
     {
 
-        private readonly string host;
-        private readonly int port;
-        private readonly string path;
-        private readonly int retryInterval;
-
-        public SaunaTemperatureClient(string host, int port, string path, int retryInterval) {
-            this.host = host;
-            this.port = port;
-            this.path = path;
-            this.retryInterval = retryInterval;
-        }
+        private readonly string host = host;
+        private readonly int port = port;
+        private readonly string path = path;
+        private readonly int retryInterval = retryInterval;
 
         public TemperatureReading FetchReading()
         {
