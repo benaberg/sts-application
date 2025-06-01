@@ -4,9 +4,22 @@ using STSApplication.model;
 
 namespace STSApplication.core
 {
-    internal static class SaunaTemperatureClient
+    internal class SaunaTemperatureClient
     {
-        public static TemperatureReading FetchReading()
+
+        private readonly string host;
+        private readonly int port;
+        private readonly string path;
+        private readonly int retryInterval;
+
+        public SaunaTemperatureClient(string host, int port, string path, int retryInterval) {
+            this.host = host;
+            this.port = port;
+            this.path = path;
+            this.retryInterval = retryInterval;
+        }
+
+        public TemperatureReading FetchReading()
         {
             TemperatureReading? _reading = null;
             HttpClientHandler handler = new()
@@ -15,11 +28,10 @@ namespace STSApplication.core
             };
             HttpClient client = new(handler)
             {
-                BaseAddress = new Uri("http://" + ApplicationResource.STS_API_Address + ":" + ApplicationResource.STS_API_Port)
+                BaseAddress = new Uri("http://" + host + ":" + port)
             };
             using (client)
             {
-                int retryInterval = int.Parse(ApplicationResource.STS_HTTP_RetryInterval);
                 do
                 {
                     try
@@ -37,10 +49,10 @@ namespace STSApplication.core
             return _reading;
         }
 
-        private static TemperatureReading PerformFetch(HttpClient client)
+        private TemperatureReading PerformFetch(HttpClient client)
         {
             System.Diagnostics.Debug.WriteLine("Fetching temperature reading...");
-            HttpResponseMessage response = client.GetAsync(ApplicationResource.STS_API_Context).Result;
+            HttpResponseMessage response = client.GetAsync(path).Result;
             response.EnsureSuccessStatusCode();
             String responseString = response.Content.ReadAsStringAsync().Result;
             System.Diagnostics.Debug.WriteLine("Received response: " + responseString);
@@ -49,7 +61,7 @@ namespace STSApplication.core
             return reading;
         }
 
-        public static async void InitUpdate(int seconds, Action<TemperatureReading> labelAction)
+        public async void InitUpdate(int seconds, Action<TemperatureReading> labelAction)
         {
             System.Diagnostics.Debug.WriteLine("Initializing update...");
             TemperatureReading _reading = FetchReading();
@@ -72,7 +84,7 @@ namespace STSApplication.core
             }
         }
 
-        private static void UpdateLabel(TemperatureReading reading, Action<TemperatureReading> labelAction)
+        private void UpdateLabel(TemperatureReading reading, Action<TemperatureReading> labelAction)
         {
             System.Diagnostics.Debug.WriteLine("Updating label...");
             labelAction.Invoke(reading);

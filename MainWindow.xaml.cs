@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Microsoft.Extensions.Configuration;
 using STSApplication.core;
 using STSApplication.model;
 
@@ -19,8 +21,19 @@ namespace STSApplication
             rotate = new RotateTransform(0, 278, 180);
             Needle.RenderTransform = rotate;
 
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            IConfiguration config = builder.Build();
+            string host = config["AppSettings:Host"]!;
+            int port = config.GetValue<int>("AppSettings:Port");
+            string path = config["AppSettings:Path"]!;
+            int retryInterval = config.GetValue<int>("AppSettings:RetryInterval");
+
             // Init fetching
-            SaunaTemperatureClient.InitUpdate(60, UpdateUI);
+            SaunaTemperatureClient client = new(host, port, path, retryInterval);
+            client.InitUpdate(60, UpdateUI);
 
             _notifyIcon.Visible = true;
             _notifyIcon.DoubleClick +=

@@ -127,20 +127,4 @@
   <data name="needle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\needle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="STS.API.Address" xml:space="preserve">
-    <value>127.0.0.1</value>
-    <comment>Server address</comment>
-  </data>
-  <data name="STS.API.Context" xml:space="preserve">
-    <value>/temperature</value>
-    <comment>Server context path</comment>
-  </data>
-  <data name="STS.API.Port" xml:space="preserve">
-    <value>9090</value>
-    <comment>Server port</comment>
-  </data>
-  <data name="STS.HTTP.RetryInterval" xml:space="preserve">
-    <value>5</value>
-    <comment>HTTP request retry interval (seconds)</comment>
-  </data>
 </root>

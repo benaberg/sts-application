@@ -89,41 +89,5 @@ namespace STSApplication {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 127.0.0.1.
-        /// </summary>
-        internal static string STS_API_Address {
-            get {
-                return ResourceManager.GetString("STS.API.Address", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /temperature.
-        /// </summary>
-        internal static string STS_API_Context {
-            get {
-                return ResourceManager.GetString("STS.API.Context", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 9090.
-        /// </summary>
-        internal static string STS_API_Port {
-            get {
-                return ResourceManager.GetString("STS.API.Port", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 5.
-        /// </summary>
-        internal static string STS_HTTP_RetryInterval {
-            get {
-                return ResourceManager.GetString("STS.HTTP.RetryInterval", resourceCulture);
-            }
-        }
     }
 }
