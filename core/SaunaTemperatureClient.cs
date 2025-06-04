@@ -12,7 +12,7 @@ namespace STSApplication.core
         private readonly string path = path;
         private readonly int retryInterval = retryInterval;
 
-        public TemperatureReading FetchReading()
+        public async Task<TemperatureReading> FetchReading()
         {
             TemperatureReading? _reading = null;
             HttpClientHandler handler = new()
@@ -29,7 +29,7 @@ namespace STSApplication.core
                 {
                     try
                     {
-                        _reading = PerformFetch(client);
+                        _reading = await PerformFetch(client);
                     }
                     catch (Exception e)
                     {
@@ -42,10 +42,10 @@ namespace STSApplication.core
             return _reading;
         }
 
-        private TemperatureReading PerformFetch(HttpClient client)
+        private async Task<TemperatureReading> PerformFetch(HttpClient client)
         {
             System.Diagnostics.Debug.WriteLine("Fetching temperature reading...");
-            HttpResponseMessage response = client.GetAsync(path).Result;
+            HttpResponseMessage response = await client.GetAsync(path);
             response.EnsureSuccessStatusCode();
             String responseString = response.Content.ReadAsStringAsync().Result;
             System.Diagnostics.Debug.WriteLine("Received response: " + responseString);
@@ -57,7 +57,7 @@ namespace STSApplication.core
         public async void InitUpdate(int seconds, Action<TemperatureReading> labelAction)
         {
             System.Diagnostics.Debug.WriteLine("Initializing update...");
-            TemperatureReading _reading = FetchReading();
+            TemperatureReading _reading = await FetchReading();
             if (seconds <= 0 || _reading == null)
             {
                 return;
@@ -69,7 +69,7 @@ namespace STSApplication.core
             var PeriodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(seconds));
             while (await PeriodicTimer.WaitForNextTickAsync())
             {
-                _reading = FetchReading();
+                _reading = await FetchReading();
                 if (_reading != null)
                 {
                     UpdateLabel(_reading, labelAction);
